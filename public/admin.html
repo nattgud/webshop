@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sv">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>title</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/admin.css">
+		<script src="js/app.js"></script>
+		<script src="js/admin.js"></script>
+	</head>
+	<body>
+		<div id="loader"><span>msg</span></div>
+		<div id="loggedInPanel">
+			<h1><a href="." class="material-symbols-outlined">home</a> Admin panel</h1>
+			<p><span id="username"></span> <button id="admin_logout">Logga ut</button></p>
+			<div class="adminLayout">
+				<div>
+					<h2 data-expander="adminUsersContainer">Användare <span id="adminUsersCount" class="h2Counter"></span></h2>
+					<span id="adminUsersContainer" class="expanderOff">
+						<span>
+							<form id="admin_createUser">
+								<input type="text" id="newusername" placeholder="Användarnamn">
+								<input type="password" id="newpassword" placeholder="Lösenord">
+								<button type="submit">Skapa användare</button>
+							</form>
+							<div id="adminUsersPanel"></div>
+						</span>
+					</span>
+				</div><div>
+					<h2 data-expander="adminImgsContainer">Bilder <span id="adminImgsCount" class="h2Counter"></span></h2>
+					<span id="adminImgsContainer" class="expanderOff">
+						<span>
+							<form id="productImageUploadForm"><input type="file" name="image" placeholder="Ny bild"><button type="submit">Ladda upp</button></form>
+							<span id="adminImagesList"></span>
+						</span>
+					</span>
+				</div><div>
+					<h2 data-expander="adminCatsContainer">Kategorier <span id="adminCatsCount" class="h2Counter"></span></h2>
+					<span id="adminCatsContainer" class="expanderOff">
+						<span>
+							<input type="text" id="adminNewCat" placeholder="Ny kategori">
+							<ul id="adminCategoriesList"></ul>
+						</span>
+					</span>
+				</div><div>
+					<h2 data-expander="adminFiltersContainer">Filter <span id="adminFiltersCount" class="h2Counter"></span></h2>
+					<span id="adminFiltersContainer" class="expanderOff">
+						<span>
+							<button id="newFilterRange">Nytt min+max-filter</button><button id="newFilterAlts">Nytt alternativfilter</button>
+							<div id="filterList"></div>
+						</span>
+					</span>
+				</div>
+			</div>
+			<h2 data-expander="adminOrdersContainer">Ordrar<span id="adminOrdersCount" class="h2Counter"></span></h2>
+			<span id="adminOrdersContainer" class="expanderOff">
+				<span>
+					<table>
+						<thead>
+							<tr>
+								<th>Tidpunkt</th>
+								<th>Köpare</th>
+								<th>Status</th>
+								<th>Leverans</th>
+								<th>Kostnad</th>
+							</tr>
+						</thead>
+						<tbody id="adminOrdersList"></tbody>
+					</table>
+				</span>
+			</span>
+			<h2 data-expander="adminProductsContainer">Produkter<span id="adminProductsCount" class="h2Counter"></span></h2>
+			<span id="adminProductsContainer">
+				<span>
+					<form id="newProductForm">
+						<table>
+							<thead><tr>
+									<th>Titel</th>
+									<th>Kort beskr</th>
+									<th>Lång beskr</th>
+									<th>Pris</th>
+									<th>Bild</th>
+									<th>Lager</th>
+									<th>Filter</th>
+									<th>Kategori</th>
+									<th></th>
+									<th></th>
+							</tr></thead>
+							<tbody id="adminProductsPanel"></tbody>
+							<tbody id="newProduct"><tr>
+								<td><input type="text" id="newProductTitle" placeholder="Titel" required></td>
+								<td><textarea id="newProductShortDesc" placeholder="Kort beskrivning"></textarea></td>
+								<td><textarea id="newProductLongDesc" placeholder="Lång beskrivning"></textarea></td>
+								<td><input type="number" step="0.01" id="newProductPrice" placeholder="Pris" required></td>
+								<td><image-input id="newProductImage" preview folder="product_images">test</image-input></td>
+								<td><input type="number" id="newProductStock" placeholder="Lagersaldo" value="1" required></td>
+								<td><filters-select id="newFilters"></filters-select></td>
+								<td><category-input id="newProductCat" list="productCategoriesList" placeholder="Kategori(er)"></category-input></td>
+								<td colspan="2"><button type="submit" class="button">Lägg till</button></td>
+							</tr></tbody>
+						</table>
+					</form>
+				</span>
+			</span>
+		</div>
+		<div id="loggedOffPanel">
+			<a href="./" style="display: block; margin-bottom: 10px;">Hem</a>
+			<form id="admin_login">
+				<input type="text" id="username" placeholder="Användarnamn" value="admin">
+				<input type="password" id="password" placeholder="Lösenord" value="1234qwer">
+				<button type="submit">Logga in</button>
+			</form>
+		</div>
+	</body>
+</html>

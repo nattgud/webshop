@@ -1,0 +1,43 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	flex-direction: row;
+	justify-content: space-between;
+}
+:host > span {
+	display: flex;
+	align-items: center;
+}
+:host > span:nth-of-type(1), :host > span:nth-of-type(3) {
+	padding: 10px;
+	background-color: #146;
+	color: #8ac;
+	font-size: 24pt;
+	user-select: none;
+}
+:host > span:nth-of-type(1):hover, :host > span:nth-of-type(3):hover {
+	background-color: #36f;
+	color: #9df;
+}
+:host > span:nth-of-type(2) {
+	justify-content: space-between;
+	flex-direction: column;
+	/* font-size: */
+}
+:host > span:first-of-type, :host > span:last-of-type {
+	cursor: pointer;
+}
+:host > span:nth-of-type(2) > span:nth-of-type(1)::after, :host > span:nth-of-type(2) > span:nth-of-type(3)::after {
+	content: "kr";
+	display: inline-block;
+	margin-left: 2px;
+	color: var(--text);
+}
+:host > span:nth-of-type(2) > span:nth-of-type(2)::after {
+	content: "st";
+	display: inline-block;
+	margin-left: 2px;
+	color: var(--text);
+}

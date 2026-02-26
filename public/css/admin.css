@@ -1,0 +1,284 @@
+body {
+	padding: 10px;
+}
+.toggle-input {
+	position: relative;
+	display: inline-block;
+	width: 30px;
+	height: 15px;
+	border: 1px solid #faa;
+	border-radius: 10px;
+	margin: 2px;
+	cursor: pointer;
+	transition: border 250ms;
+}
+.toggle-input::after {
+	display: inline-block;
+	content: "";
+	height: 9px;
+	width: 9px;
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	background-color: #faa;
+	border-radius: 10px;
+	transition: left 250ms, background-color 250ms;
+}
+.toggle-input.on {
+	border-color: #afa;
+}
+.toggle-input.on::after {
+	background-color: #afa;
+	left: 17px;
+}
+.toggle-input:hover {
+	border-color: #fff;
+}
+
+#adminUsersContainer, #adminProductsContainer, #adminCatsContainer, #adminImgsContainer, #adminFiltersContainer, #adminOrdersContainer {
+	display: grid;
+	grid-template-rows: 1fr;
+	opacity: 1;
+	transition: grid-template-rows 200ms, opacity 200ms;
+}
+#adminUsersContainer.expanderOff > span, #adminProductsContainer.expanderOff > span, #adminCatsContainer.expanderOff > span, #adminImgsContainer.expanderOff > span, #adminFiltersContainer.expanderOff > span, #adminOrdersContainer.expanderOff > span {
+	overflow: hidden;
+}
+.expanderOff {
+	grid-template-rows: 0fr!important;
+	opacity: 0!important;
+}
+
+.h2Counter {
+	position: absolute;
+	font-size: 10pt;
+	transform: translate(-30px, -10px);
+}
+.h2Counter:not(:empty)::after {
+	display: inline-block;
+	content: "st";
+}
+
+#adminImagesList {
+	display: grid;
+}
+#adminImagesList > span {
+	cursor: zoom-in;
+	transition: color 200ms;
+}
+#adminImagesList > span:hover {
+	color: var(--text-secondary);
+}
+#adminImagesList > span > span {
+	position: relative;
+}
+#adminImagesList > span > span > img {
+	display: none;
+	position: absolute;
+	right: 0px;
+	height: 100px;
+	z-index: 2;
+}
+#adminImagesList > span > span:hover img {
+	display: block;
+}
+#adminImagesList > span > span:last-of-type {
+	margin-left: 10px;
+	font-style: italic;
+	font-size: 9pt;
+}
+
+#adminCategoriesList, #adminCategoriesList ul {
+	margin: 0px;
+	padding-left: 15px;
+	user-select: none;
+}
+#adminCategoriesList {
+	margin-left: 10px;
+}
+#adminCategoriesList li span:first-of-type {
+	display: inline-block;
+	padding: 5px 2px;
+	border-radius: 5px;
+	border: 1px solid rgba(0,0,0,0);
+	transition: border 250ms;
+}
+#adminCategoriesList:not(.frozen) li:not(.forbidden) > span:first-of-type {
+	cursor: pointer;
+}
+#adminCategoriesList:not(.catMoving):not(.frozen) li:not(.forbidden) > span:first-of-type:hover, #adminCategoriesList.catMoving li.catMove:not(.forbidden) > span:first-of-type {
+	border-color: rgba(0,255,255,0.8);
+}
+#adminCategoriesList:not(.catMoving):not(.frozen) span:first-of-type:hover::after, #adminCategoriesList.catMoving li.catMove > span:first-of-type::after {
+	content: "Flytta";
+	display: inline-block;
+	font-style: italic;
+	font-size: 10pt;
+	margin-left: 5px;
+}
+#adminCategoriesList:not(.frozen).catMoving li:not(.catMove):not(.forbidden) > span:first-of-type:hover::after {
+	content: "Hit";
+	display: inline-block;
+	font-style: italic;
+	font-size: 10pt;
+	margin-left: 5px;
+}
+#adminCategoriesList:not(.frozen).catMoving li.catMove > span:first-of-type:hover::after {
+	content: "Ut";
+	display: inline-block;
+	font-style: italic;
+	font-size: 10pt;
+	margin-left: 5px;
+}
+#adminCategoriesList:not(.frozen).catMoving li:not(.catMove):not(.forbidden) > span:first-of-type:hover {
+	border-color: rgba(0,255,0,1);
+}
+#adminOrdersContainer > span > table th, #adminOrdersContainer > span > table td {
+	padding: 2px 5px;
+}
+
+#loggedInPanel {
+	display: none;
+}
+#loggedInPanel > h1:first-of-type a {
+	font-size: 28pt;
+
+}
+.adminLayout {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.adminLayout > div {
+	flex: 1 1 300px;
+	padding: 10px;
+	border: 1px solid var(--bg-secondary);
+	border-radius: 5px;
+}
+#adminUsersPanel #adminUserList {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 2px 0px;
+}
+#adminUsersPanel #adminUserList > span {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px;
+	background-color: var(--bg-secondary);
+	border-radius: 5px;
+	margin: 2px;
+	font-size: 10pt;
+	cursor: pointer;
+	transition: background-color 250ms;
+}
+#adminUsersPanel #adminUserList > span:hover {
+	background-color: #158;
+}
+#adminUsersPanel #adminUserList > span > span:last-of-type {
+	display: block;
+	font-style: italic;
+	font-size: 8pt;
+}
+#adminUsersPanel #adminUserList span .minibutton {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+#newProductForm > table {
+	width: 100%;
+}
+#newProductForm .inputChanged {
+	background-color: #833!important;
+}
+#newProductForm table {
+	border-collapse: collapse;
+}
+#newProductForm #adminProductsPanel td {
+	padding: 5px;
+	background-color: var(--bg-secondary);
+	transition: background-color 200ms;
+}
+#newProductForm #adminProductsPanel tr:hover td {
+	background-color: var(--bg-secondary-hover);
+}
+#newProductForm #newProduct td {
+	vertical-align: top;
+}
+#newProductForm #newProduct td textarea, #newProductForm #newProduct td input {
+	width: 100%;
+}
+
+.fullscreen.imgPickerLista {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	align-content: start;
+	gap: 10px;
+	max-height: 100vh;
+	overflow-y: auto;
+}
+.fullscreen.imgPickerLista > span {
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	aspect-ratio: 1 / 1;
+	width: 100%;
+	max-width: 300px;
+	min-width: 100px;
+}
+.fullscreen.imgPickerLista > span > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: 5px;
+	border: 2px solid rgba(0,255,0,0);
+	transition: border 250ms;
+}
+.fullscreen.imgPickerLista > span > span {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	font-size: 8pt;
+	word-wrap: break-word;
+	text-align: center;
+	padding: 2px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	transition: color 200ms, background-color 200ms;
+}
+.fullscreen.imgPickerLista > span:hover img {
+	border: 2px dotted rgba(0,255,0,1);
+}
+.fullscreen.imgPickerLista > span.selected span {
+	background-color: rgba(0, 50, 0, 0.7);
+	color: #afa;
+}
+
+#newProductForm #newProduct td * {
+	vertical-align: top;
+}
+#newProductForm #newProductSelectedCats {
+	border: 1px solid #aaa;
+	padding: 2px;
+}
+#newProductForm #newProductCat {
+	width: 100px;
+}
+#newProductForm #newProductSelectedCats:empty::after {
+	display: inline-block;
+	content: "Saknas";
+	background-color: #fcc;
+	padding: 5px;
+}
+
+#filterList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}

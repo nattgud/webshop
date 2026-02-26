@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="sv">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Webbshop</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+		<link rel="stylesheet" href="/css/style.css">
+		<script src="/js/app.js"></script>
+	</head>
+	<body>
+		<div id="loader"><span>msg</span></div>
+		<header>
+			<div id="mainMenuButton" class="material-symbols-outlined">menu</div>
+			<h1 id="mainTitle">Webbshop</h1>
+			<div id="cartMenuButton" class="material-symbols-outlined">shopping_cart</div>
+		</header>
+		<main>
+			<section id="mainMenu" class="submenu"></section>
+			<section>
+				<h1 id="pageHeader">Välkommen!</h1>
+				<div id="page"></div>
+			</section>
+			<section id="cart" class="submenu">
+				<h3>Kundvagn</h3>
+				<div id="cartItems"></div>
+				<p>Totalt: <span id="cartTotal">-</span></p>
+				<button type="button" id="cartPay">Kassa</button>
+				<button type="button" id="cartClear">Rensa</button>
+			</section>
+		</main>
+
+		<footer>
+			&copy; 2026 David Andersson <a href="/admin" style="margin-left: 10px;">A</a>
+		</footer>
+	</body>
+</html>

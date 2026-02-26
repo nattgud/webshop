@@ -3,6 +3,6 @@ const connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'webshop_egen'
+  database: 'webshop'
 });
 module.exports = connection;

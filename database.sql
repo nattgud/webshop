@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: webshop_egen
+-- Host: localhost    Database: webshop
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.32-MariaDB
 

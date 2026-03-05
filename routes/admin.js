@@ -69,7 +69,6 @@ router.post('/login', async (req, res) => {
 	const { username, password } = req.body;
 	const [users] = await db.execute("SELECT * FROM admin_users WHERE username = ?;", [username]);
 		if(users.length <= 0) {
-			await con.rollback();
 			return res.status(401).json({ error: 'wrong' });
 		}
 	if(await bcrypt.compare(password, users[0].password)) {
@@ -77,9 +76,9 @@ router.post('/login', async (req, res) => {
 		const [me] = await db.execute("SELECT username FROM admin_users WHERE username = ?;", [username]);
 		req.session.isAdmin = true;
 		req.session.username = me[0].username;
+
 		return res.json({state: true, username: me[0].username});
 	} else {
-		await con.rollback();
 		return res.json({state: false});
 	}
 });

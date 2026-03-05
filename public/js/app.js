@@ -199,7 +199,10 @@ window.addEventListener("load", async () => {
 			this._topBar = document.createElement("DIV");
 			this._topBar.classList.add("topBar");
 			this._name = document.createElement("SPAN");
-			this._name.addEventListener("click", e => this.classList.toggle("open"));
+			this._name.addEventListener("click", e => {
+				this.classList.toggle("open");
+				if(this.f !== undefined) setTimeout(this.f(), 10);
+			});
 			this._rangeVal1 = document.createElement("SPAN");
 			this._rangeVal2 = document.createElement("SPAN");
 			this._topBar.appendChild(this._rangeVal1);
@@ -219,6 +222,7 @@ window.addEventListener("load", async () => {
 					} else {
 						newAlt.classList.add("selected");
 					}
+					if(this.f !== undefined) this.f();
 				});
 				this._altContainer.appendChild(newAlt);
 			}
@@ -258,7 +262,10 @@ window.addEventListener("load", async () => {
 				this._rangeFrom.style.left = newPos+"px";
 				this._rangeVal1.textContent = Math.round((this._rangeFromValue * (this._max-this._min)) + this._min)+this._units;
 			});
-			window.addEventListener("mouseup", e => this._rangeFromMove = false);
+			window.addEventListener("mouseup", e => {
+				if(this.f !== undefined && this._rangeFromMove === true) this.f();
+				this._rangeFromMove = false;
+			});
 			this._rangeToMove = false;
 			this._rangeToValue = 1;
 			this._rangeTo.addEventListener("mousedown", e => this._rangeToMove = true);
@@ -272,7 +279,10 @@ window.addEventListener("load", async () => {
 				this._rangeTo.style.left = newPos+"px";
 				this._rangeVal2.textContent = Math.round((this._rangeToValue * (this._max-this._min)) + this._min)+this._units;
 			});
-			window.addEventListener("mouseup", e => this._rangeToMove = false);
+			window.addEventListener("mouseup", e => {
+				if(this.f !== undefined && this._rangeToMove === true) this.f();
+				this._rangeToMove = false;
+			});
 			this._container.appendChild(this._rangeContainer);
 			this._style2 = document.createElement("LINK");
 			this._style2.rel = "stylesheet";
@@ -482,7 +492,7 @@ window.addEventListener("load", async () => {
 			return await load.resource("api/shop/info/"+id);
 		}, cart: async () => {
 			return await load.resource("api/cart");
-		},
+		}, 
 		content: {
 			products: async (cat = false) => {
 				const main = document.querySelector("#page");
@@ -581,17 +591,23 @@ window.addEventListener("load", async () => {
 					}
 					const filterElement = document.createElement("filter-input");
 					filterElement.value = filter;
+					filterElement.f = () => {
+						filterProducts();
+					}
 					subSubSubFilterContainer.appendChild(filterElement);
 				}
 				subSubFilterContainer.appendChild(subSubSubFilterContainer);
 				subFilterContainer.appendChild(subSubFilterContainer);
 				filterContainer.appendChild(subFilterContainer);
-				const filterApply = document.createElement("SPAN");
-				filterApply.classList.add("button");
-				filterApply.textContent = "Uppdatera produkter";
-				filterApply.style.whiteSpace = "nowrap";
-				filterContainer.appendChild(filterApply);
-				filterApply.addEventListener("click", async e => {
+				// const filterApply = document.createElement("SPAN");
+				// filterApply.classList.add("button");
+				// filterApply.textContent = "Uppdatera produkter";
+				// filterApply.style.whiteSpace = "nowrap";
+				// filterContainer.appendChild(filterApply);
+				// filterApply.addEventListener("click", async e => {
+				// 	filterProducts();
+				// });
+				const filterProducts = async () => {
 					const filterValues = [...filterContainer.querySelectorAll("filter-input")].map(el => el.value).filter(val => val !== false).map(val => {
 						if(val.value === undefined) {
 							val.value = val.from+"_"+val.to;
@@ -605,7 +621,7 @@ window.addEventListener("load", async () => {
 					products = await load.products(cat===false?"*":cat);
 
 					drawProducts(products.products);
-				});
+				};
 				main.appendChild(filterContainer);
 				
 				const drawProducts = (list) => {
@@ -982,13 +998,6 @@ window.addEventListener("load", async () => {
 					inputPostal,
 					inputCity
 				];
-				// DEBUG
-				for(let check of checks) {
-					check.value = "12345";
-				}
-				checks[1].value = "test@test.com";
-				checks[4].value = "12345";
-				// END DEBUG
 				if(deliveryContent.classList.contains("disabled")) {
 					for(let check of checks) {
 						let shortOk = true;
@@ -1498,6 +1507,7 @@ window.addEventListener("load", async () => {
 				popup.open("Kunde inte hämta beställningar. Försök igen.");
 				return false;
 			}
+			if(orderData.length === 0) main.innerHTML = "Du har inte lagt några beställningar ännu.";
 			let orders = {};
 			orderData.forEach(order => {
 				if(orders[order.orderId] === undefined) orders[order.orderId] = {
